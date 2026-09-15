@@ -1,12 +1,12 @@
 {
   "title": "PC110 Atlas",
-  "description": "Explore and emulate the IBM PC110 on macOS (Apple silicon), Windows x64, and Linux x64/ARM64. Guided native installation. Windows/Linux use the portable core without QEMU or guest audio. Bring your own media.",
+  "description": "Explore and emulate the IBM PC110 on Intel/Apple silicon Macs, Windows x64, and Linux x64/ARM64. Guided native installation. Intel Mac/Windows/Linux use the portable core without QEMU or guest audio. Bring your own media.",
   "icon": "icon.png",
   "platform": ["darwin", "win32", "linux"],
   "arch": ["arm64", "x64"],
   "links": [
     {
-      "title": "Windows and Linux downloads",
+      "title": "Intel Mac, Windows and Linux downloads",
       "value": "https://github.com/ahmadexp/homebrew-pc110-atlas/releases/tag/desktop-v1.0.0"
     },
     {

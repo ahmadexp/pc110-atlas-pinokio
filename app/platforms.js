@@ -2,7 +2,7 @@ const release = "https://github.com/ahmadexp/homebrew-pc110-atlas/releases/tag/d
 const downloads = "https://github.com/ahmadexp/homebrew-pc110-atlas/releases/download/desktop-v1.0.0";
 const appStore = "https://apps.apple.com/us/app/pc-110/id6801404183";
 const snapStore = "https://snapcraft.io/pc110-atlas";
-const portableNotice = "The Windows and Linux 1.0.0 packages use the portable PC110 core, not QEMU, and do not include guest audio. Bring your own lawfully obtained firmware and raw disk images.";
+const portableNotice = "The Intel Mac, Windows and Linux 1.0.0 packages use the portable PC110 core, not QEMU, and do not include guest audio. Bring your own lawfully obtained firmware and raw disk images.";
 
 function targetFor(kernel) {
   const { platform, arch } = kernel;
@@ -12,6 +12,14 @@ function targetFor(kernel) {
       install: appStore,
       installLabel: "Mac App Store",
       requirements: "Apple silicon Mac, macOS 14 or later. Complete App Store installation if prompted.",
+    };
+  }
+  if (platform === "darwin" && arch === "x64") {
+    return {
+      identity: { id: "org.opensourcepc110.atlas.desktop" },
+      install: `${downloads}/pc110-atlas-1.0.0-macos-x64.dmg`,
+      installLabel: "Intel Mac installer",
+      requirements: `Intel Mac, macOS 12 or later. Open the signed and notarized DMG and drag PC110 Atlas into Applications. Keep any different edition already installed instead of replacing it. ${portableNotice}`,
     };
   }
   if (platform === "win32" && arch === "x64") {
@@ -39,10 +47,7 @@ function targetFor(kernel) {
 }
 
 function unsupportedReason(kernel) {
-  if (kernel.platform === "darwin" && kernel.arch === "x64") {
-    return "Intel Mac installation is not available yet: the portable Mac package is awaiting notarization and public release. The Mac App Store edition requires Apple silicon.";
-  }
-  return `No published PC110 Atlas package is supported by this launcher on ${kernel.platform}/${kernel.arch}. Supported targets are macOS arm64, Windows x64, and Linux x64/arm64. A native Windows ARM64 package and 32-bit packages are not available.`;
+  return `No published PC110 Atlas package is supported by this launcher on ${kernel.platform}/${kernel.arch}. Supported targets are macOS x64/arm64, Windows x64, and Linux x64/arm64. A native Windows ARM64 package and 32-bit packages are not available.`;
 }
 
 module.exports = { targetFor, unsupportedReason, release, downloads, appStore, snapStore, portableNotice };

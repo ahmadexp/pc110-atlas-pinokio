@@ -29,7 +29,7 @@ module.exports = {
         ...(updating && supported ? { default: true } : {}),
       },
       ...(target ? [{
-        icon: kernel.platform === "darwin" ? "fa-brands fa-app-store" : "fa-solid fa-download",
+        icon: kernel.platform === "darwin" && kernel.arch === "arm64" ? "fa-brands fa-app-store" : "fa-solid fa-download",
         text: target.installLabel,
         href: target.install,
         popout: true,

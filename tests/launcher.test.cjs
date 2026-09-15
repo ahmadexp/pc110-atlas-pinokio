@@ -21,7 +21,7 @@ test("metadata declares all three OS families and preserves the schema", () => {
   assert.ok(fs.existsSync(path.join(root, metadata.icon)));
 });
 
-for (const kernel of [mac, { platform: "win32", arch: "x64" }, { platform: "linux", arch: "x64" }, { platform: "linux", arch: "arm64" }]) {
+for (const kernel of [mac, { platform: "darwin", arch: "x64" }, { platform: "win32", arch: "x64" }, { platform: "linux", arch: "x64" }, { platform: "linux", arch: "arm64" }]) {
   test(`${kernel.platform}/${kernel.arch} defaults to launch with a matching installer`, async () => {
     const menu = await launcher.menu(kernel, idle);
     assert.deepEqual(menu.filter(item => item.default).map(item => item.href), ["start.js"]);
@@ -50,7 +50,6 @@ test("updating does not automatically relaunch the app", async () => {
 });
 
 for (const kernel of [
-  { platform: "darwin", arch: "x64" },
   { platform: "win32", arch: "arm64" },
   { platform: "win32", arch: "ia32" },
   { platform: "linux", arch: "ia32" },
@@ -87,6 +86,22 @@ test("Windows points to the published x64 MSI and preserves Start menu discovery
   assert.equal(target.install, `${downloads}/pc110-atlas-1.0.0-windows-x64.msi`);
   assert.match(target.requirements, /Start menu shortcut/);
   assert.ok(!target.install.includes(appStore));
+});
+
+test("Intel Mac uses the portable bundle ID and x64 DMG, never the Apple silicon App Store app", async () => {
+  const kernel = { platform: "darwin", arch: "x64" };
+  const target = targetFor(kernel);
+  assert.deepEqual(target.identity, { id: "org.opensourcepc110.atlas.desktop" });
+  assert.equal(target.install, `${downloads}/pc110-atlas-1.0.0-macos-x64.dmg`);
+  assert.notEqual(target.identity.id, targetFor(mac).identity.id);
+  assert.match(target.requirements, /macOS 12 or later/);
+  assert.match(target.requirements, /not QEMU/);
+  assert.match(target.requirements, /do not include guest audio/);
+  const script = await start(kernel);
+  assert.equal(script.run.find(step => step.method === "app.launch").params.id, target.identity.id);
+  const menu = await launcher.menu(kernel, idle);
+  assert.equal(menu.find(item => item.href === target.install).icon, "fa-solid fa-download");
+  assert.ok(!menu.some(item => item.href === appStore));
 });
 
 for (const arch of ["x64", "arm64"]) {
