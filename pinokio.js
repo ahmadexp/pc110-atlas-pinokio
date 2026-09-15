@@ -1,11 +1,13 @@
 const metadata = require("./pinokio.json");
+const { targetFor } = require("./app/platforms.js");
 
 module.exports = {
   version: "3.0",
   ...metadata,
   launch_type: "desktop",
   menu: async (kernel, info) => {
-    const supported = kernel.platform === "darwin" && kernel.arch === "arm64";
+    const target = targetFor(kernel);
+    const supported = Boolean(target);
     const updating = info.running("update.js");
     return [
       ...(supported ? [{
@@ -16,7 +18,7 @@ module.exports = {
       }] : []),
       {
         icon: "fa-solid fa-book",
-        text: supported ? "Setup and help" : "Requires an Apple silicon Mac",
+        text: supported ? "Setup and help" : "Platform requirements and availability",
         href: "README.md",
         ...(!supported ? { default: true } : {}),
       },
@@ -26,12 +28,12 @@ module.exports = {
         href: "update.js",
         ...(updating && supported ? { default: true } : {}),
       },
-      {
-        icon: "fa-brands fa-app-store",
-        text: "PC110 Atlas on the App Store",
-        href: "https://apps.apple.com/us/app/pc-110/id6801404183",
+      ...(target ? [{
+        icon: kernel.platform === "darwin" ? "fa-brands fa-app-store" : "fa-solid fa-download",
+        text: target.installLabel,
+        href: target.install,
         popout: true,
-      },
+      }] : []),
       {
         icon: "fa-brands fa-github",
         text: "Source and support",

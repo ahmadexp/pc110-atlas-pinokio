@@ -10,3 +10,8 @@
 !/update.js
 !/tests/
 !/tests/launcher.test.cjs
+!/app/
+!/app/platforms.js
+!/.github/
+!/.github/workflows/
+!/.github/workflows/test.yml

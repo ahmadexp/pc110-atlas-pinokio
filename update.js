@@ -7,7 +7,7 @@ module.exports = {
   }, {
     method: "log",
     params: {
-      text: "Launcher updated. PC110 Atlas itself is updated separately through the App Store. Personal media and app settings were not changed by this launcher update.",
+      text: "Launcher updated. Update PC110 Atlas separately through the Mac App Store, your Linux package manager, or the public Windows/Linux installers. This action does not update or reset the app or its personal media.",
     },
   }],
 };

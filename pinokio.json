@@ -1,10 +1,14 @@
 {
   "title": "PC110 Atlas",
-  "description": "Explore and emulate the IBM PC110 in the native Mac app. Apple silicon, macOS 14+. Guides installation through the App Store. Bring your own firmware and system media.",
+  "description": "Explore and emulate the IBM PC110 on macOS (Apple silicon), Windows x64, and Linux x64/ARM64. Guided native installation. Windows/Linux use the portable core without QEMU or guest audio. Bring your own media.",
   "icon": "icon.png",
-  "platform": ["darwin"],
-  "arch": ["arm64"],
+  "platform": ["darwin", "win32", "linux"],
+  "arch": ["arm64", "x64"],
   "links": [
+    {
+      "title": "Windows and Linux downloads",
+      "value": "https://github.com/ahmadexp/homebrew-pc110-atlas/releases/tag/desktop-v1.0.0"
+    },
     {
       "title": "Get PC110 Atlas on the App Store",
       "value": "https://apps.apple.com/us/app/pc-110/id6801404183"

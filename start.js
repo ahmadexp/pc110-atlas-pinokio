@@ -1,14 +1,18 @@
+const { targetFor, unsupportedReason } = require("./app/platforms.js");
+
 module.exports = async (kernel) => {
-  if (kernel.platform !== "darwin" || kernel.arch !== "arm64") {
-    throw new Error("This launcher requires an Apple silicon Mac with macOS 14 or later. Windows, Linux and Intel Macs are not supported by this launcher.");
-  }
+  const target = targetFor(kernel);
+  if (!target) throw new Error(unsupportedReason(kernel));
   return {
     run: [{
+      method: "log",
+      params: { text: target.requirements },
+    }, {
       method: "app.launch",
       params: {
-        id: "org.opensourcepc110.atlas",
+        ...target.identity,
         refresh: true,
-        install: "https://apps.apple.com/us/app/pc-110/id6801404183",
+        install: target.install,
         installTimeout: 600000,
         installPollInterval: 5000,
       },
