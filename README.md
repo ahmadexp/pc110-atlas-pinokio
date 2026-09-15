@@ -92,6 +92,9 @@ and the native app window. Never commit runtime logs or `ENVIRONMENT`.
 
 ## Public distribution
 
+Open the [PC110 Atlas listing on Pinokio](https://pinokio.co/apps/github-com-ahmadexp-pc110-atlas-pinokio)
+and choose **Install**, or use Download from URL as described above.
+
 This is a community launcher, not a claim of Pinokio verification or featured
 placement. Anyone can install it using the GitHub URL. The repository uses the
 `pinokio` topic for community discovery. Directory indexing and featured
