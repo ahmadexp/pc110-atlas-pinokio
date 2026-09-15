@@ -1,0 +1,17 @@
+{
+  "title": "PC110 Atlas",
+  "description": "Explore and emulate the IBM PC110 in the native Mac app. Apple silicon, macOS 14+. Guides installation through the App Store. Bring your own firmware and system media.",
+  "icon": "icon.png",
+  "platform": ["darwin"],
+  "arch": ["arm64"],
+  "links": [
+    {
+      "title": "Get PC110 Atlas on the App Store",
+      "value": "https://apps.apple.com/us/app/pc-110/id6801404183"
+    },
+    {
+      "title": "Launcher source and support",
+      "value": "https://github.com/ahmadexp/pc110-atlas-pinokio"
+    }
+  ]
+}

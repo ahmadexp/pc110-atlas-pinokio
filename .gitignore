@@ -1,0 +1,12 @@
+# Public launcher allowlist. Never publish local logs, environment, or media.
+*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/icon.png
+!/pinokio.js
+!/pinokio.json
+!/start.js
+!/update.js
+!/tests/
+!/tests/launcher.test.cjs
